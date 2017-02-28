@@ -14,10 +14,20 @@ java -jar target/configuration-service-9.35.0-SNAPSHOT.jar
 # To test
 ##################################################
 - start the Spring Cloud Config server
+
 - verify it sees the props for the NotifyGW:
     curl http://localhost:8888/notifygatewaysvc/default -v -X GET
+    200 Long json reflecting the content of /home/centos/springcloudtest/notifygatewaysvc.yml
+
+- verify that a change to /home/centos/springcloudtest/notifygatewaysvc.yml is reflected on the fly
+    - change a property's value (make sure you do git add and commit)
+    - curl http://localhost:8888/notifygatewaysvc/default -v -X GET
+    - verify the new value is displayed
+
 - build and start the NotifyGw
+
 - verify all the config for NotifyGw is done correctly: use its curlTests.txt
+    - TODO change the pwd and verify it is reflected on the fly
 
 
 ################################################################
