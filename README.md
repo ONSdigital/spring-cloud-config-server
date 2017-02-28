@@ -54,3 +54,4 @@ java -jar target/configuration-service-9.35.0-SNAPSHOT.jar
 # TODOs
 ################################################################
 TODO props for different profiles
+TODO Will we need to use: https://cloud.spring.io/spring-cloud-consul/
