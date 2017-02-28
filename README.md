@@ -24,10 +24,17 @@ java -jar target/configuration-service-9.35.0-SNAPSHOT.jar
     - curl http://localhost:8888/notifygatewaysvc/default -v -X GET
     - verify the new value is displayed
 
-- build and start the NotifyGw
-
-- verify all the config for NotifyGw is done correctly: use its curlTests.txt
-    - TODO change the pwd and verify it is reflected on the fly
+- build and start the NotifyGw:
+    - verify all the config for NotifyGw is done correctly: use its curlTests.txt
+    - change the value for notify.templateId and verify it is reflected on the fly:
+        - in the Config Server: curl http://localhost:8888/notifygatewaysvc/default -v -X GET
+        - in NotifyGW:
+            - curl http://localhost:8181/manual/true -v -X GET -u notifygw:ctp
+                - the logs will show you the old value of templateId.
+            - curl -u notifygw:ctp http://localhost:8281/mgmt/refresh -v -X POST -d "" (IMPORTANT step to force the client to refresh itself and draw the new value: note @RefreshScope used in NotifyGW)
+                - 200 is received with ["config.client.version","notify.templateId"]
+            - curl http://localhost:8181/manual/true -v -X GET -u notifygw:ctp
+                - the logs will show you the new value.
 
 
 ################################################################
@@ -40,16 +47,6 @@ git commit
 
 
 ################################################################
-# Important notes
-################################################################
-- see @RefreshScope on NotifyConfiguration in the Notify GW:
-    - by default, the configuration values are read on the client’s startup, and not again. You can force a bean to refresh its configuration - to pull
-    updated values from the Config Server - by annotating the bean with the Spring Cloud Config @RefreshScope and then by triggering a refresh
-    event.
-
-
-################################################################
 # TODOs
 ################################################################
 TODO spring.cloud.config.server.git.uri points to a local git directory. This will have to be replaced with a github project.
-TODO Trigger a refresh event to verify props are updated on the fly.
