@@ -1,0 +1,28 @@
+info:
+  contactEmail: philippe.brossier@ons.gov.uk
+  version: ${project.version}
+  commit: ${buildNumber}
+  branch: ${scmBranch}
+  buildTime: ${timestamp}
+
+server:
+  port: 8888
+
+spring:
+  application:
+    name: configuration-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: /home/centos/springcloudtest
+  output:
+    ansi:
+      enabled: never
+
+# logging config here as a reminder as to how to override logback from cmd line
+# ie -Dlogging.level.org.springframework=DEBUG
+logging:
+  level:
+    uk.gov.ons.ctp: debug
+    org.springframework: warn
