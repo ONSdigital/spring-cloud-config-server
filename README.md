@@ -5,6 +5,19 @@ mvn clean install -P artifactory-aws
 
 
 ##################################################
+# Prerequisites
+##################################################
+- define a git directory to store props:
+    cd /home/centos/
+    mkdir springcloudtest
+    git init
+    create file notifygatewaysvc.yml (notifygatewaysvc must match the spring.application.name in the NotifyGW)
+    git commit
+
+- TODO spring.cloud.config.server.git.uri points to a local git directory. This will have to be replaced with a github project.
+
+
+##################################################
 # To run the app
 ##################################################
 java -jar target/configuration-service-9.35.0-SNAPSHOT.jar
@@ -38,15 +51,6 @@ java -jar target/configuration-service-9.35.0-SNAPSHOT.jar
 
 
 ################################################################
-# Work done to set up the local git directory
-################################################################
-cd /home/centos/springcloudtest
-git init
-create file notifygatewaysvc.yml (notifygatewaysvc must match the spring.application.name in the NotifyGW)
-git commit
-
-
-################################################################
 # TODOs
 ################################################################
-TODO spring.cloud.config.server.git.uri points to a local git directory. This will have to be replaced with a github project.
+TODO props for different profiles
