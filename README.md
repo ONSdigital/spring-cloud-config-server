@@ -15,8 +15,6 @@ mvn clean install -P artifactory-aws
     create file notifygatewaysvc-prod.yml   --> for props you want to override in PROD
     git commit
 
-- TODO spring.cloud.config.server.git.uri points to a local git directory. This will have to be replaced with a github project.
-
 
 ##################################################
 # To run the app
@@ -58,5 +56,6 @@ java -jar target/configuration-service-9.35.0-SNAPSHOT.jar
 ################################################################
 # TODOs
 ################################################################
-TODO props for different profiles
+TODO encryption of props in the git directory
+TODO spring.cloud.config.server.git.uri points to a local git directory. This will have to be replaced with a github project.
 TODO Will we need to use: https://cloud.spring.io/spring-cloud-consul/
