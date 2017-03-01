@@ -11,7 +11,8 @@ mvn clean install -P artifactory-aws
     cd /home/centos/
     mkdir springcloudtest
     git init
-    create file notifygatewaysvc.yml (notifygatewaysvc must match the spring.application.name in the NotifyGW)
+    create file notifygatewaysvc.yml (notifygatewaysvc must match the spring.application.name in the NotifyGW) --> this is the default profile
+    create file notifygatewaysvc-prod.yml   --> for props you want to override in PROD
     git commit
 
 - TODO spring.cloud.config.server.git.uri points to a local git directory. This will have to be replaced with a github project.
@@ -28,9 +29,13 @@ java -jar target/configuration-service-9.35.0-SNAPSHOT.jar
 ##################################################
 - start the Spring Cloud Config server
 
-- verify it sees the props for the NotifyGW:
+- verify it sees the default props for the NotifyGW:
     curl http://localhost:8888/notifygatewaysvc/default -v -X GET
     200 Long json reflecting the content of /home/centos/springcloudtest/notifygatewaysvc.yml
+
+- verify it sees the PROD props for the NotifyGW:
+    curl http://localhost:8888/notifygatewaysvc/prod -v -X GET
+    200 Long json reflecting the content of /home/centos/springcloudtest/notifygatewaysvc.yml and notifygatewaysvc-prod.yml
 
 - verify that a change to /home/centos/springcloudtest/notifygatewaysvc.yml is reflected on the fly
     - change a property's value (make sure you do git add and commit)
